@@ -1,9 +1,6 @@
 var restify = require('restify');
 
 var server = restify.createServer();
-server.use(restify.plugins.acceptParser(server.acceptable));
-server.use(restify.plugins.queryParser());
-server.use(restify.plugins.fullResponse());
 server.use(restify.plugins.bodyParser());
 
 server.post("/hello", function (req, res, next) {
