@@ -10,6 +10,7 @@ server.use(restify.plugins.bodyParser());
 server.get('/users', getUsers);
 server.post('/users', addUser);
 server.del('/users/:nm', deleteUser);
+//server.put('/users/:nm', updateUser);
 
 server.listen(8080, function () {
   console.log('%s listening at %s', server.name, server.url);
