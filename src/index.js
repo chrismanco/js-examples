@@ -1,10 +1,11 @@
 var restify = require('restify');
-var { addUser } = require('./add-user');
-var { getUsers } = require('./get-users');
+var { addUser } = require('./users/add-user');
+var { getUsers } = require('./users/get-users');
 
 var server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
+// rutas - routes
 server.get('/users', getUsers);
 server.post('/users', addUser);
 

@@ -1,4 +1,4 @@
-var { getConnection } = require('./database');
+var { getConnection } = require('../database');
 
 function addUser(req, res, next) {
   if (!req.body.apodo || !req.body.edad) {

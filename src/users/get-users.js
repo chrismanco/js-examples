@@ -1,4 +1,4 @@
-var { getConnection } = require('./database');
+var { getConnection } = require('../database');
 
 function getUsers(req, res, next) {
   getConnection(function (err, connection) {
@@ -17,7 +17,7 @@ function getUsers(req, res, next) {
             response: 'Error getting user. ' + err
           });
         } else {
-          console.log(result);
+          //console.log(result);
 
           res.send({
             result
@@ -31,6 +31,7 @@ function getUsers(req, res, next) {
   });
 }
 
-module.exports = {
+module.exports.getUsers = getUsers;
+/*module.exports = {
   getUsers: getUsers
-}
+}*/
