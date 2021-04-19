@@ -1,55 +1,13 @@
 var restify = require('restify');
-var mysql = require('mysql');
-
-var pool  = mysql.createPool({
-  connectionLimit : 10,
-  host: 'localhost',
-  user: 'root',
-  password: '12345678',
-  port: 3306,
-  database: 'test'
-});
+var { addUser } = require('./add-user');
+var { getUsers } = require('./get-users');
 
 var server = restify.createServer();
 server.use(restify.plugins.bodyParser());
 
-server.post('/users', function (req, res, next) {
-  if (!req.body.nickname || !req.body.age) {
-    res.send({
-      response: 'Body structure is incorrect'
-    });
-    next();
-    return;
-  }
+server.get('/users', getUsers);
+server.post('/users', addUser);
 
-  pool.getConnection(function(err, connection) {
-    if (err) {
-      res.send({
-        response: 'Error connecting to database. ' + err
-      });
-      next();
-
-    } else {
-      var sql = `INSERT INTO users (nickname, age) VALUES ('${req.body.nickname}', ${req.body.age})`;
-
-      connection.query(sql, function (err, result) {
-        if (err) {
-          res.send({
-            response: 'Error inserting user. ' + err
-          });
-        } else {
-          res.send({
-            response: 'User inserted'
-          });
-        }
-
-        connection.release();
-        next();
-      });
-    }
-  });
-});
-
-server.listen(8080, function() {
+server.listen(8080, function () {
   console.log('%s listening at %s', server.name, server.url);
 });
